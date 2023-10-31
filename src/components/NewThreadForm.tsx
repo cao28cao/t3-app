@@ -1,14 +1,15 @@
 import { useSession } from 'next-auth/react';
 import { api } from "~/utils/api";
-// import { Button } from "./Button";
-import { Button } from '@chakra-ui/react'
+import { Button } from "./Button";
+// import { Button } from '@chakra-ui/react'
 import ProfileImage  from "./ProfileImage";
 import { 
     useState,
     useRef, 
     useEffect, 
     useLayoutEffect,
-    useCallback } from 'react';
+    useCallback, 
+    FormEvent} from 'react';
 
 function updateTextAreaSize(textArea?: HTMLTextAreaElement) {
     if(textArea == null) return
@@ -16,7 +17,7 @@ function updateTextAreaSize(textArea?: HTMLTextAreaElement) {
     textArea.style.height = `${textArea.scrollHeight}px`
 }
 
-export default function NewThreadForm() {
+function Form() {
     const session = useSession(); 
     const [inputValue, setInputValue] = useState(''); 
     const textAreaRef = useRef<HTMLTextAreaElement>();
@@ -31,10 +32,27 @@ export default function NewThreadForm() {
         console.log(textAreaRef.current)
     }, [inputValue])
 
+    const createThread = api.thread.create.useMutation({
+        onSuccess: (newThread) => {
+            console.log(newThread);
+            setInputValue('');
+        }
+    });
+
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        createThread.mutate({
+            content: inputValue,
+        })
+    }
+
     if(session.status !== 'authenticated') return;
 
     return (
-        <form className='flex flex-col g2 border-b px-4 py-2'>
+        <form
+            onSubmit = {handleSubmit} 
+            className='flex flex-col g2 border-b px-4 py-2'
+        >
             <div className='flex gap-4'>
                 <ProfileImage src={session.data.user.image}/>
                 <textarea
@@ -47,12 +65,16 @@ export default function NewThreadForm() {
                 />
             </div>
             <Button 
-                colorScheme='linkedin'
-                variant={'solid'}
                 className='self-end'
             >
                 Post
             </Button>
         </form>
     )
+}
+
+export default function NewThreadForm() {
+    const session = useSession();
+    if(session.status !== 'authenticated') return null;
+    return <Form/>
 }

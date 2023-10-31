@@ -22,6 +22,7 @@ model Thread {
     likes Like[]
     @@index([userId])
 
+
 }
 
 model Like {
