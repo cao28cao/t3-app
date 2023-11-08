@@ -10,7 +10,7 @@ type ProfileImageProps = {
 export default function ProfileImage({ src, className = ""}: ProfileImageProps) {
   return (
     <div>
-        {/* <div className={`relative h-12 w-12 overflow-hidden rounded-full ${className}`}>
+        <div className={`relative h-12 w-12 overflow-hidden rounded-full ${className}`}>
             {src == null ? null : (
                 <Image
                     src={src}
@@ -20,10 +20,10 @@ export default function ProfileImage({ src, className = ""}: ProfileImageProps) 
                     objectFit="cover"
                 />
             )}
-        </div> */}
-        <Avatar
-            src={src!}
-        />
+        </div>
+        {/* <Avatar
+            src={src}
+        /> */}
     </div>
   )
 }

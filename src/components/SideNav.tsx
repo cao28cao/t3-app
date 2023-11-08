@@ -19,11 +19,16 @@ export default function SideNav() {
                 )}
                 {user == null ? (
                     <li>
-                        <button onClick={void signIn}>Log In</button>
+                        <button 
+                            onClick={(e) => signIn()}
+                            className='border-2 bg-blue-300 hover:bg-blue-600'
+                        >
+                            Log In
+                        </button>
                     </li>
                 ) : (
                     <li>
-                        <button onClick={void signOut}>Log Out</button>
+                        <button onClick={(e) => signOut()}>Log Out</button>
                     </li>
                 )}
             </ul>
