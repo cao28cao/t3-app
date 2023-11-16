@@ -2,7 +2,6 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import { threadRouter } from "~/server/api/routers/thread";
 import { profileRouter } from "./routers/profile";
 
-
 /**
  * This is the primary router for your server.
  *
