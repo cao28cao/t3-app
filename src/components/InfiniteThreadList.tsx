@@ -25,8 +25,8 @@ type InfiniteThreadListProps = {
   isLoading: boolean;
   isError: boolean;
   hasMore: boolean | undefined;
-  fetchNextPage: () => Promise<unknown>;
-  threads: Thread[] | undefined;
+  fetchNewThreads: () => Promise<unknown>;
+  threads?: Thread[];
 };
 
 export default function InfiniteThreadList({
@@ -34,7 +34,7 @@ export default function InfiniteThreadList({
   isError,
   isLoading,
   hasMore = false,
-  fetchNextPage,
+  fetchNewThreads,
 }: InfiniteThreadListProps) {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error</div>;
@@ -49,7 +49,7 @@ export default function InfiniteThreadList({
     <ul>
       <InfiniteScroll
         dataLength={threads.length}
-        next={fetchNextPage}
+        next={fetchNewThreads}
         hasMore={hasMore || false}
         loader={<LoadingSpinner />}
         endMessage={

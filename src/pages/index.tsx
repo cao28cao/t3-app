@@ -53,7 +53,7 @@ function RecentThreads() {
       isError={threads.isError}
       isLoading={threads.isLoading}
       hasMore={threads.hasNextPage}
-      fetchNextPage={threads.fetchNextPage}
+      fetchNewThreads={threads.fetchNextPage}
     />
   );
 }
@@ -70,7 +70,7 @@ function FollowingThreads() {
       isError={threads.isError}
       isLoading={threads.isLoading}
       hasMore={threads.hasNextPage}
-      fetchNextPage={threads.fetchNextPage}
+      fetchNewThreads={threads.fetchNextPage}
     />
   );
 }

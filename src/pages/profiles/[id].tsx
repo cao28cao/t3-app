@@ -79,7 +79,7 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           isError={threads.isError}
           isLoading={threads.isLoading}
           hasMore={threads.hasNextPage}
-          fetchNextPage={threads.fetchNextPage}
+          fetchNewThreads={threads.fetchNextPage}
         />
       </main>
     </>
