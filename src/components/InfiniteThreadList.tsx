@@ -11,7 +11,7 @@ import { LoadingSpinner } from "./LoadingSpinner";
 type Thread = {
   id: string;
   content: string;
-  createdAt: string;
+  createdAt: Date;
   likeCount: number;
   likedByMe: boolean;
   user: {
