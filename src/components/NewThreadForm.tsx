@@ -34,7 +34,6 @@ function Form() {
 
   const createThread = api.thread.create.useMutation({
     onSuccess: (newThread) => {
-      console.log(newThread);
       setInputValue("");
 
       if (session.status !== "authenticated") {
@@ -50,8 +49,8 @@ function Form() {
           likedByMe: false,
           user: {
             id: session.data.user.id,
-            name: session.data.user.name ?? null,
-            image: session.data.user.image ?? null,
+            name: session.data.user.name || null,
+            image: session.data.user.image || null,
           },
         };
 
@@ -103,7 +102,7 @@ function Form() {
   );
 }
 
-export default function NewThreadForm() {
+export function NewThreadForm() {
   const session = useSession();
   if (session.status !== "authenticated") return null;
   return <Form />;

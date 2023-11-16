@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import NewThreadForm from "~/components/NewThreadForm";
+import { NewThreadForm } from "~/components/NewThreadForm";
 import InfiniteThreadList from "~/components/InfiniteThreadList";
 import { api } from "~/utils/api";
 
