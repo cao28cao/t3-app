@@ -17,10 +17,13 @@ function updateTextAreaSize(textArea?: HTMLTextAreaElement) {
     textArea.style.height = `${textArea.scrollHeight}px`
 }
 
+
 function Form() {
     const session = useSession(); 
     const [inputValue, setInputValue] = useState(''); 
     const textAreaRef = useRef<HTMLTextAreaElement>();
+    const trpcUtils = api.useUtils();
+
 
     const inputRef = useCallback((textArea: HTMLTextAreaElement) => {
         updateTextAreaSize(textArea);
@@ -36,6 +39,39 @@ function Form() {
         onSuccess: (newThread) => {
             console.log(newThread);
             setInputValue('');
+
+            if(session.status !== 'authenticated') {
+                return
+            }
+            
+            trpcUtils.thread.infiniteFeed.setInfiniteData({}, (oldData) => {
+                if(oldData == null || oldData.pages[0] == null) return;
+                
+                const newCacheThread = {
+                    ...newThread,
+                    likeCount: 0,
+                    likedByMe: false,
+                    user: {
+                        id: session.data.user.id,
+                        name: session.data.user.name || null,
+                        image: session.data.user.image || null,
+                    },
+                };
+
+                return {
+                    ...oldData,
+                    pages: [
+                        {
+                            ...oldData.pages[0],
+                            threads: [
+                                newCacheThread,
+                                ...oldData.pages[0].threads,
+                            ],
+                        },
+                        ...oldData.pages.slice(1),
+                    ],
+                };
+            });
         }
     });
 
@@ -65,7 +101,7 @@ function Form() {
                 />
             </div>
             <Button 
-                className='self-end'
+                className='self-end transition-colors duration-200 hover:bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] hover:from-blue-700 hover:via-blue-800 hover:to-gray-900'
             >
                 Post
             </Button>

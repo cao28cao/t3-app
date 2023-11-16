@@ -7,13 +7,13 @@ import { type AppType } from "next/app";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
-import { Roboto } from 'next/font/google';
+import { Roboto, Archivo } from 'next/font/google';
 import { ChakraProvider } from "@chakra-ui/react";
 
 import Head from "next/head";
 import SideNav from "~/components/SideNav";
 
-const fonts = Roboto({
+const fonts = Archivo({
   weight: ['400', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],

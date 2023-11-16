@@ -65,12 +65,27 @@ export const threadRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(z.object({ content: z.string() }))
-    .mutation(async ({ input: { content }, ctx }) => {
+    .mutation( async ({ input: { content }, ctx }) => {
       const thread = await ctx.db.thread.create({
         data: { content, userId: ctx.session.user.id },
       });
       return thread;
     }),
   
+  toggleLike: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation( async ({ input: { id }, ctx }) => {
+      const data = { threadId: id, userId: ctx.session.user.id}
+      const existingLike = await ctx.db.like.findUnique({
+        where: { userId_threadId: data },
+      });
+      if(existingLike == null) {
+        await ctx.db.like.create({ data })
+        return { addedLike: true }
+      } else {
+        await ctx.db.like.delete({ where: { userId_threadId: data }})
+        return { addedLike: false }
+      }
+    }),
 });
 
