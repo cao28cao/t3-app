@@ -6,26 +6,38 @@ import { useSession } from 'next-auth/react';
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 import IconHoverEffect from './IconHoverEffect';
 import { api } from '~/utils/api';
+import { LoadingSpinner } from './LoadingSpinner';
+
 type Thread = {
-  id: string,
-  content: string,
-  createdAt: string,
-  likeCount: number,
-  likedByMe: boolean,
-  user: { id: string, image: string | null, name: string | null };
-}
+  id: string;
+  content: string;
+  createdAt: Date;
+  likeCount: number;
+  likedByMe: boolean;
+  user: {
+    id: string;
+    image: string | null;
+    name: string | null;
+  }
+};
 
 type InfiniteThreadListProps = {
-  isLoading: boolean
-  isError: boolean
-  hasNextPage: boolean
-  fetchNextPage: () => Promise<unknown>
-  threads?: Thread[]
+  isLoading: boolean;
+  isError: boolean;
+  hasMore: boolean | undefined;
+  fetchNextPage: () => Promise<unknown>;
+  threads: Thread[] | undefined;
 }
-export default function InfiniteThreadList({ threads, isError, isLoading, fetchNextPage }: InfiniteThreadListProps) {
-  if(isLoading) return <div>Loading...</div>
+export default function InfiniteThreadList({ 
+  threads, 
+  isError, 
+  isLoading,
+  hasMore = false, 
+  fetchNextPage 
+}: InfiniteThreadListProps) {
+  if(isLoading) return <LoadingSpinner />
   if(isError) return <div>Error</div>
-  if(threads == null) return <div>threads is null</div>
+
   if(threads == null || threads?.length === 0) return (
     <h2 className='bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 text-transparent bg-clip-text'>No tweets</h2>
   )
@@ -34,8 +46,8 @@ export default function InfiniteThreadList({ threads, isError, isLoading, fetchN
       <InfiniteScroll
         dataLength={threads.length}
         next={fetchNextPage}
-        hasMore={true}
-        loader={<h4>Loading...</h4>}
+        hasMore={hasMore || false}
+        loader={<LoadingSpinner />}
         endMessage={
           <p style={{ textAlign: 'center' }}>
             <b>Yay! You have seen it all</b>
@@ -89,12 +101,16 @@ function ThreadCard({
                   }
                 }
                 return thread
-              })
-            }
-          })
-        }
-      }
+              }),
+            };
+          }),
+        };
+      };
       trpcUtils.thread.infiniteFeed.setInfiniteData({}, updateData);
+      trpcUtils.thread.infiniteFeed.setInfiniteData({ onlyFollowing: true }, updateData);
+      trpcUtils.thread.infiniteProfileFeed.setInfiniteData({ userId: user.id }, updateData);
+
+
   }});
   function handleToggleLike() {
     toggleLike.mutate({id});

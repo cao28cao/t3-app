@@ -1,5 +1,6 @@
 import { createTRPCRouter } from "~/server/api/trpc";
 import { threadRouter } from "~/server/api/routers/thread";
+import { profileRouter } from "./routers/profile";
 
 
 /**
@@ -9,6 +10,7 @@ import { threadRouter } from "~/server/api/routers/thread";
  */
 export const appRouter = createTRPCRouter({
   thread: threadRouter,
+  profile: profileRouter,
 });
 
 // export type definition of API
