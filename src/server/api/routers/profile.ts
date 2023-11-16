@@ -86,5 +86,10 @@ export const profileRouter = createTRPCRouter({
         });
         addedFollow  = false
       }
+
+      // Revalidation
+      
+
+      return { addedFollow };
     }),
 });

@@ -128,7 +128,7 @@ function ThreadCard({
         <div className="flex gap-1">
           <Link
             href={`/profile/${user.id}`}
-            className="bg-gradient-to-tl from-slate-800 via-indigo-100 to-zinc-400 bg-clip-text font-bold text-transparent hover:via-teal-500"
+            className="bg-gradient-to-tl from-slate-800 via-indigo-800 to-zinc-800 bg-clip-text font-bold text-transparent hover:from-slate-400 hover:via-indigo-400 hover:to-zinc-400 hover:underline-offset-2"
           >
             {user.name}
           </Link>
