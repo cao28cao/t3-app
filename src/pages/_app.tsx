@@ -5,7 +5,7 @@ import { type AppType } from "next/app";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
-import { Roboto, Archivo } from "next/font/google";
+import { Archivo } from "next/font/google";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import Head from "next/head";

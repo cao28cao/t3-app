@@ -92,11 +92,10 @@ async function getInfiniteThreads({
   whereClause?: Prisma.ThreadWhereInput;
   limit: number;
   cursor:
-    | {
+      {
         id: string;
         createdAt: Date;
-      }
-    | undefined;
+      } | undefined;
   ctx: inferAsyncReturnType<typeof createTRPCContext>;
 }) {
   const currentUserId = ctx.session?.user.id;
@@ -145,7 +144,7 @@ async function getInfiniteThreads({
       createdAt: thread.createdAt,
       likeCount: thread._count.likes,
       user: thread.user,
-      likedByMe: thread.likes?.length === 1,
+      likedByMe: thread.likes?.length > 0,
     })),
     nextCursor,
   };
