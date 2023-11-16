@@ -29,6 +29,7 @@ type InfiniteThreadListProps = {
   threads?: Thread[] | null;
 };
 
+
 export default function InfiniteThreadList({
   threads,
   isError,
