@@ -50,7 +50,7 @@ function RecentThreads() {
   const formattedThreads = threads.data?.pages.flatMap((page) =>
     page.threads.map((thread) => ({
       ...thread,
-      createdAt: thread.createdAt as Date,
+      createdAt: new Date(thread.createdAt),
     }))
   );
   // console log typeof createdAt
@@ -86,7 +86,7 @@ function FollowingThreads() {
   const formattedThreads = threads.data?.pages.flatMap((page) =>
     page.threads.map((thread) => ({
       ...thread,
-      createdAt: thread.createdAt as Date,
+      createdAt: new Date(thread.createdAt),
     }))
   );
 
