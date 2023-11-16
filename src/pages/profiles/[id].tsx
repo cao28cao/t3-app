@@ -40,6 +40,12 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       });
     },
   });
+  const formattedThreads = threads.data?.pages.flatMap((page) =>
+    page.threads.map((thread) => ({
+      ...thread,
+      createdAt: new Date(thread.createdAt),
+    })),
+  );
 
   if (profile == null || profile.name == null)
     return <ErrorPage statusCode={404} />;
@@ -75,7 +81,7 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </header>
       <main>
         <InfiniteThreadList
-          threads={threads.data?.pages.flatMap((page) => page.threads)}
+          threads={formattedThreads}
           isError={threads.isError}
           isLoading={threads.isLoading}
           hasMore={threads.hasNextPage}

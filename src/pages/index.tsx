@@ -46,10 +46,16 @@ function RecentThreads() {
     {},
     { getNextPageParam: (lastPage) => lastPage.nextCursor }
   );
+  const formattedThreads = threads.data?.pages.flatMap((page) =>
+    page.threads.map((thread) => ({
+      ...thread,
+      createdAt: new Date(thread.createdAt),
+    }))
+  );
 
   return (
     <InfiniteThreadList
-      threads={threads.data?.pages.flatMap((page) => page.threads)}
+      threads={formattedThreads}
       isError={threads.isError}
       isLoading={threads.isLoading}
       hasMore={threads.hasNextPage}
@@ -64,9 +70,16 @@ function FollowingThreads() {
     { getNextPageParam: (lastPage) => lastPage.nextCursor }
   );
 
+  const formattedThreads = threads.data?.pages.flatMap((page) =>
+    page.threads.map((thread) => ({
+      ...thread,
+      createdAt: new Date(thread.createdAt),
+    }))
+  );
+
   return (
     <InfiniteThreadList
-      threads={threads.data?.pages.flatMap((page) => page.threads)}
+      threads={formattedThreads}
       isError={threads.isError}
       isLoading={threads.isLoading}
       hasMore={threads.hasNextPage}
