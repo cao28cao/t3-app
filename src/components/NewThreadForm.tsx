@@ -41,9 +41,7 @@ function Form() {
       }
 
       trpcUtils.thread.infiniteFeed.setInfiniteData({}, (oldData) => {
-        if (oldData == null || oldData.pages?.[0] == null) {
-            return;
-        }
+        if (!oldData?.pages?.[0]) return;
 
         const newCacheThread = {
           ...newThread,
