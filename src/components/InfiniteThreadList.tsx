@@ -68,6 +68,7 @@ export default function InfiniteThreadList({
 
 const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
   dateStyle: "short",
+  timeStyle: "short",
 });
 
 function ThreadCard({
