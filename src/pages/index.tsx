@@ -48,7 +48,7 @@ function RecentThreads() {
   );
   return (
     <InfiniteThreadList
-      threads={threads.data?.pages.flatMap((page) => page.threads) || []}
+      threads={threads.data?.pages.flatMap((page) => page.threads) ?? []}
       isError={threads.isError}
       isLoading={threads.isLoading}
       hasMore={threads.hasNextPage}
@@ -64,7 +64,7 @@ function FollowingThreads() {
   );
   return (
     <InfiniteThreadList
-      threads={threads.data?.pages.flatMap((page) => page.threads) || []}
+      threads={threads.data?.pages.flatMap((page) => page.threads) ?? []}
       isError={threads.isError}
       isLoading={threads.isLoading}
       hasMore={threads.hasNextPage}

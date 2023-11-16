@@ -28,6 +28,7 @@ type InfiniteThreadListProps = {
   fetchNextPage: () => Promise<unknown>;
   threads: Thread[] | undefined;
 };
+
 export default function InfiniteThreadList({
   threads,
   isError,
@@ -80,7 +81,7 @@ function ThreadCard({
 }: Thread) {
   const trpcUtils = api.useUtils();
   const toggleLike = api.thread.toggleLike.useMutation({
-    onSuccess: async ({ addedLike }) => {
+    onSuccess: ({ addedLike }) => {
       const updateData: Parameters<
         typeof trpcUtils.thread.infiniteFeed.setInfiniteData
       >[1] = (oldData) => {

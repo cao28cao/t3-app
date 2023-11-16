@@ -17,7 +17,6 @@ import IconHoverEffect from "~/components/IconHoverEffect";
 import ProfileImage from "~/components/ProfileImage";
 import InfiniteThreadList from "~/components/InfiniteThreadList";
 
-
 import { RxArrowLeft } from "react-icons/rx";
 
 const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
@@ -29,16 +28,18 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     { getNextPageParam: (lastPage) => lastPage.nextCursor },
   );
   const trpcUtils = api.useUtils();
-  const toggleFollow = api.profile.toggleFollow.useMutation({ onSuccess: ({ addedFollow }) => {
-    trpcUtils.profile.getById.setData({ id }, oldData => {
-      if(oldData == null) return oldData;
-      return {
-        ...oldData,
-        isFollowing: addedFollow,
-        followersCount: oldData.followersCount + (addedFollow ? 1 : -1)
-      }
-    })
-  }});
+  const toggleFollow = api.profile.toggleFollow.useMutation({
+    onSuccess: ({ addedFollow }) => {
+      trpcUtils.profile.getById.setData({ id }, (oldData) => {
+        if (oldData == null) return oldData;
+        return {
+          ...oldData,
+          isFollowing: addedFollow,
+          followersCount: oldData.followersCount + (addedFollow ? 1 : -1),
+        };
+      });
+    },
+  });
 
   if (profile == null || profile.name == null)
     return <ErrorPage statusCode={404} />;
@@ -96,10 +97,10 @@ function FollowButton({
   userId: string;
   onClick: () => void;
 }) {
-    const session = useSession();
-    if(session.status !== "authenticated" || session.data.user.id === userId) {
-        return null;
-    }
+  const session = useSession();
+  if (session.status !== "authenticated" || session.data.user.id === userId) {
+    return null;
+  }
   return (
     <Button
       disabled={isLoading}
