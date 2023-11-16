@@ -26,7 +26,7 @@ type InfiniteThreadListProps = {
   isError: boolean;
   hasMore: boolean | undefined;
   fetchNewThreads: () => Promise<unknown>;
-  threads?: Thread[];
+  threads?: Thread[] | null;
 };
 
 export default function InfiniteThreadList({
