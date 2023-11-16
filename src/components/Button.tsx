@@ -1,5 +1,4 @@
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
-import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 type ButtonProps = {
   small?: boolean;
   gray?: boolean;

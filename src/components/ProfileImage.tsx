@@ -1,5 +1,4 @@
 import React from "react";
-import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
 import Image from "next/image";
 import { VscAccount } from "react-icons/vsc";
 type ProfileImageProps = {

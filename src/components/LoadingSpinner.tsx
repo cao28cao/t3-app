@@ -1,6 +1,5 @@
 import React from "react";
 import { CircularProgress } from "@chakra-ui/react";
-import { Progress } from "@chakra-ui/react";
 
 type LoadingSpinnerProps = {
   big?: boolean;

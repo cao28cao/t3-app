@@ -1,12 +1,9 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { inferAsyncReturnType } from "@trpc/server";
 import { z } from "zod";
 
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
-  createTRPCContext,
 } from "~/server/api/trpc";
 
 export const profileRouter = createTRPCRouter({
@@ -19,20 +16,16 @@ export const profileRouter = createTRPCRouter({
         select: {
           name: true,
           image: true,
-          _count: {
-            select: {
-              followers: true,
-              follows: true,
-              threads: true,
-            },
-          },
+          _count: { select: { followers: true, follows: true, threads: true } },
           followers:
             currentUserId == null
               ? undefined
               : { where: { id: currentUserId } },
         },
       });
+
       if (profile == null) return;
+
       return {
         name: profile.name,
         image: profile.image,
@@ -42,7 +35,7 @@ export const profileRouter = createTRPCRouter({
         isFollowing: profile.followers.length > 0,
       };
     }),
-
+  
   toggleFollow: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(async ({ input: { userId }, ctx }) => {
@@ -87,9 +80,8 @@ export const profileRouter = createTRPCRouter({
         addedFollow  = false
       }
 
-      // Revalidation
-      
 
+      // Revalidation
       return { addedFollow };
     }),
 });

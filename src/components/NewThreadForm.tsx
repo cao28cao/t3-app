@@ -1,12 +1,10 @@
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { Button } from "./Button";
-// import { Button } from '@chakra-ui/react'
 import ProfileImage from "./ProfileImage";
 import {
   useState,
   useRef,
-  useEffect,
   useLayoutEffect,
   useCallback,
   FormEvent,
@@ -52,8 +50,8 @@ function Form() {
           likedByMe: false,
           user: {
             id: session.data.user.id,
-            name: session.data.user.name || null,
-            image: session.data.user.image || null,
+            name: session.data.user.name ?? null,
+            image: session.data.user.image ?? null,
           },
         };
 
