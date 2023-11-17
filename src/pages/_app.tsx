@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { Archivo } from "next/font/google";
-import { ChakraProvider } from "@chakra-ui/react";
+import { extendTheme, ChakraProvider } from "@chakra-ui/react";
 
 import Head from "next/head";
 import SideNav from "~/components/SideNav";
@@ -18,27 +18,34 @@ const fonts = Archivo({
   display: "swap",
 });
 
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: "dark",
+}
+
+const customTheme = extendTheme({ config })
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   return (
     <SessionProvider session={session}>
-      <main className={fonts.className}>
-        <Head>
-          <title>NextAuth.js Example</title>
-          <meta name="description" content="NextAuth.js Example" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <div className="container mx-auto flex items-start">
-          <SideNav />
-          <div className="min-h-screen flex-grow border-x">
-            <ChakraProvider>
-              <Component {...pageProps} />
-            </ChakraProvider>
+      <ChakraProvider theme={customTheme}>
+        <main className={fonts.className}>
+          <Head>
+            <title>NextAuth.js Example</title>
+            <meta name="description" content="NextAuth.js Example" />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <div className="container mx-auto flex items-start">
+            <SideNav />
+            <div className="min-h-screen flex-grow border-x">
+                <Component {...pageProps} />
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </ChakraProvider>
     </SessionProvider>
   );
 };

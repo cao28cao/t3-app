@@ -91,8 +91,8 @@ function Form() {
           onChange={(e) => {
             setInputValue(e.target.value);
           }}
-          className="flex-grow resize-none overflow-hidden p-4 text-lg outline-none"
-          placeholder="What is on your mind?"
+          className="flex-grow resize-none overflow-hidden p-4 text-lg outline-none mb-2 rounded-full bg-inherit"
+          placeholder="What's on your mind?"
         />
       </div>
       <Button className="self-end transition-colors duration-200 hover:bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] hover:from-blue-700 hover:via-blue-800 hover:to-gray-900">
