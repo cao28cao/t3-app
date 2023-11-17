@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const session = useSession();
   return (
     <>
-      <header className="sticky top-0 z-10 border-b pt-2">
+      <header className="sticky top-0 z-10 border-b pt-2 bg-gray-800">
         <h1 className="mb-2 px-4 text-lg font-bold">Home</h1>
         {session.status === "authenticated" && (
           <div className="flex">

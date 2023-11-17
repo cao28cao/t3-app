@@ -124,7 +124,7 @@ function ThreadCard({
   return (
     <li className="flex gap-4 border-b px-4 py-4">
       <Link href={`/profiles/${user.id}`}>
-        <ProfileImage src={user.image} />
+        <ProfileImage name={user.name} src={user.image} />
       </Link>
       <div className="flex flex-grow flex-col">
         <div className="flex gap-1">

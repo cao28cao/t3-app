@@ -9,6 +9,7 @@ import {
   useCallback,
   FormEvent,
 } from "react";
+import { User } from "lucide-react";
 
 function updateTextAreaSize(textArea?: HTMLTextAreaElement) {
   if (textArea == null) return;
@@ -83,7 +84,7 @@ function Form() {
       className="g2 flex flex-col border-b px-4 py-2"
     >
       <div className="flex gap-4">
-        <ProfileImage src={session.data.user.image} />
+        <ProfileImage name={session.data.user.name ?? null}/>
         <textarea
           style={{ height: 0 }}
           value={inputValue}
