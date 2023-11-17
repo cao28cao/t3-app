@@ -12,6 +12,7 @@ export default function ProfileImage({
 }: ProfileImageProps) {
   return (
     <div>
+      {/* {src} */}
       <div
         className={`relative h-12 w-12 overflow-hidden rounded-full ${className}`}
       >
@@ -21,9 +22,7 @@ export default function ProfileImage({
           <Image
             src={src}
             alt="Profile Image"
-            quality={100}
             layout="fill"
-            objectFit="cover"
           />
         )}
       </div>
