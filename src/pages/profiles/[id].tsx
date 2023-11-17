@@ -61,7 +61,7 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             <RxArrowLeft className="h-6 w-6" />
           </IconHoverEffect>
         </Link>
-        <ProfileImage src={profile.image} className={`mr-2 flex-shrink-0`} />
+        <ProfileImage src={profile.image} name={profile.name} className={`mr-2 flex-shrink-0`} />
         <div className="ml-2 flex-grow">
           <h1 className="text-lg font-bold">{profile.name}</h1>
           <div className="text-gray-500">
