@@ -19,7 +19,7 @@ const fonts = Archivo({
 });
 
 const config = {
-  useSystemColorMode: false,
+  useSystemColorMode: true,
   initialColorMode: "dark",
 }
 
